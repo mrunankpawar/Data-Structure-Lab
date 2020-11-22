@@ -1,0 +1,99 @@
+Module 1:
+def in_put():
+ arr1 = []
+ Num = int(input("Enter the number of students "))
+ for i in range (Num):
+ per = float(input("Enter the percentage marks "))
+ arr1.append(per)
+ prit(arr1)
+ return arr1
+ 
+Module 2:
+def prit(arr1):
+ for i in range(len(arr1)):
+ print("%f" %arr1[i])
+def prit_top(arr1,c,m):
+ l = len(arr1)
+
+ j = l - 1
+ while (l!=0 and c!=0):
+ print(m,". ""%.1f" %arr1[j])
+ j = j-1
+ m = m+1
+ c = c-1
+ l = l-1
+ 
+Module 3:
+def bucket(arr):
+
+ result = []
+ idx = 0
+ for j in range(1,len(arr)+1):
+ min = 100
+ for i in range(len(arr)):
+ if min>arr[i]:
+ min = arr[i]
+ idx = i
+ arr[idx]=100
+ result.append(min)
+ return result
+ 
+Module 4:
+def bsort(ar):
+ b1 = []
+ b2 = []
+ b3 = []
+ b4 = []
+ for i in range(len(ar)):
+ if ar[i]<35:b1.append(ar[i])
+ elif ar[i]>=35 and ar[i]<60:b2.append(ar[i])
+ elif ar[i]>=60 and ar[i]<75:b3.append(ar[i])
+ else:b4.append(ar[i])
+
+ return b1,b2,b3,b4
+ 
+Module 5:
+def main():
+ arr = []
+ bfail = []
+ bsecond = []
+ bfirst = []
+ bdist = []
+ arr = in_put()
+ print("Entered array: ")
+ print()
+ prit(arr)
+ bfail,bsecond,bfirst,bdist = bsort(arr)
+
+ print(bfail,bsecond,bfirst,bdist)
+ bfail = bucket(bfail)
+ bsecond = bucket(bsecond)
+ bfirst = bucket(bfirst)
+ bdist = bucket(bdist)
+ #print("Top 5 scores: \n")
+ print(bfail,bsecond,bfirst,bdist)
+
+ l1=len(bdist)
+ l2=len(bfirst)
+ l3=len(bsecond)
+ l4=len(bfail)
+ c = 5
+ m = 1
+ if l1>=5:
+ prit_top(bdist,c,m)
+ elif(l1+l2)>=5:
+ prit_top(bdist,c,m)
+ c = 5 - l1
+ m = m + l1
+ prit_top(bfirst,c,m)
+ elif(l1+l2+l3)>=5:
+ prit_top(bdist,c,m)
+ c = 5 - l1
+ m = m + l1
+ prit_top(bfirst,c,m)
+ c = c - l2
+ m = m + l2
+ prit_top(bsecond,c,m)
+ 
+Module 6:
+main()
