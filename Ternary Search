@@ -1,0 +1,57 @@
+/*Write a Python program to maintain club members, sort on roll numbers in
+ascending order. Write function “Ternary_Search” to search whether particular
+student is member of club or not. Ternary Search is modified Binary Search
+that divides array into 3 halves instead of two.*/
+
+Module 1:
+def tinp():
+ arr = {}
+ while True:
+ data = input("Enter roll,name/'exit' for end ")
+ if 'exit' == data:
+ break
+ roll,name = data.split(",")
+ roll = int(roll)
+ arr[roll] = name
+ print(arr)
+ list1 = arr.keys()
+ list1 = list(list1)
+ list1.sort()
+ print(list1)
+
+ s = len(arr)
+
+ return (arr,list1,s)
+ 
+Module 2:
+def tsearch(list1,s,l,r,key):
+ if(l<0 or r>s-1 or l>r):
+ return - 1
+ elif(key == list1[l]):
+ return l
+ elif(key == list1[r]):
+ return r
+ elif(key < list1[l]):
+ return tsearch(list1,s,l-1,r,key)
+ elif(key > list1[l] and key < list1[r]):
+ return tsearch(list1,s,l+1,r-1,key)
+ elif(key > list1[r]):
+ return tsearch(list1,s,l,r+1,key)
+ 
+Module 3:
+def main():
+ arr,list1,s = tinp()
+
+ l = int(s/3)
+ r = int((s/3)*2)
+ key = int(input("Enter roll no of student to be searched "))
+ if(tsearch(list1,s,l-1,r-1,key) == -1):
+ print("This student is not the member of club.")
+ else:
+ x = (tsearch(list1,s,l-1,r-1,key))
+ print('{} was found at index {}.'.format(key,x))
+ print("Student is the member of the club. Details are: ")
+ print(arr[key])
+ 
+Module 4:
+main()
