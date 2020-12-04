@@ -1,0 +1,221 @@
+#include<iostream>
+using namespace std;
+#include<unistd.h>
+#define SIZE 5
+
+class Q
+{
+ 
+    int q[SIZE],front,rear,front1,rear1;
+    public:
+        Q()
+        {
+            front=0;
+            rear=0;
+            front1=SIZE-1;
+            rear1=SIZE-1;
+        }
+        void enqueue();
+        void dequeue();
+        void display();
+        void del();
+        void enqueue1();
+        void dequeue1();
+        void display1();
+        void del1();
+        void slp(int s);
+
+};
+
+    void Q:: enqueue()
+        {
+            int no;
+            cout<<"rear "<<rear<<" "<<"front"<<front<<endl;
+            if (rear==SIZE || rear>rear1)
+            cout<<"Queue is full";
+            else
+            {
+                cout<<"Enter the num: ";
+                cin>>no;
+                q[rear]=no;
+            
+            }
+            
+            rear++;
+        }
+
+    void Q:: enqueue1()
+    {
+        int no1;
+        cout<<"rear1 "<<rear1<<" "<<"front1 "<<front1<<endl;
+        if (rear1<0 || rear1<rear)
+        cout<<"queue is full";
+        else
+        {
+            cout<<"Enter the num: ";
+            cin>>no1;
+            q[rear1]=no1;
+        }
+
+        rear1--;
+    }
+
+    void Q::dequeue()
+    {
+        int no,i;
+        if (front == rear)
+        cout<<"Queue is empty";
+        else
+        {
+            no = q[front];
+            q[front] = 0;
+            front++;
+        }
+        
+    }
+
+    void Q::dequeue1()
+    {
+        int no,i;
+        cout<<front1<<" "<<rear1;
+        if (front1 == rear1)
+        cout<<"Queue is empty";
+        else
+        {
+            no = q[front1];
+            q[front1] = 0;
+            front1--;
+        }
+        
+    }
+
+    void Q:: display()
+    {
+        int i,temp=front;
+        if (front==rear && front1==rear1)
+        cout<<"The queue is empty";
+            else
+            {
+                cout<<"\n Element in the queue:";
+                for(i=0;i<SIZE;i++)
+                {
+                    cout<<q[i]<<" ";
+
+                }
+                cout<<endl;
+            }
+            
+    }
+
+    void Q:: display1()
+    {
+        int i,temp=front1;
+        if (front1==rear1)
+        cout<<"The queue is empty";
+            else
+            {
+                cout<<"\n Element in the queue:";
+                for(i=temp;i>rear1;i--)
+                {
+                    cout<<q[i]<<" ";
+
+                }
+                cout<<endl;
+            }
+            
+    }
+
+    void Q::slp(int s)
+    {
+        sleep(q[s]);
+    }
+
+    void Q::del()
+    {
+        int t=front;
+        while(!(front==rear))
+        {
+            display();
+            cout<<"Removing job no "<<t+1<<"..."<<endl;
+            slp(t);
+            dequeue();
+            cout<<"\n Job no. "<<t+1<<" -removed from the queue \n"<<endl;
+            t++;
+        }
+    front=0;
+    rear=0;
+    cout<<"The Queue is empty";
+    }
+
+    void Q::del1()
+    {
+        int t=front1;
+        while(!(front1==rear1))
+        {
+            display1();
+            cout<<"Removing job no "<<t<<"..."<<endl;
+            slp(t);
+            dequeue1();
+            cout<<"\n Job no. "<<t<<" -removed from the queue \n"<<endl;
+            t--;
+        }
+    front1=SIZE-1;
+    rear1=SIZE-1;
+    cout<<"The Queue is empty";
+    }
+
+int main()
+{
+    Q obj;
+    int ch,ch1;
+
+        while(1)
+        {
+            cout<<"\n ..........Enter your choice..........";
+            cout<<"\n 1. Add job";
+            cout<<"\n 2. Remove Element";
+            cout<<"\n 3. Display Element";
+            cout<<"\n 4. Exit \n";
+
+            cin>>ch;
+
+                switch(ch)
+                {
+                    case 1:
+                    cout<<"\n Which queue 1 or 2? "<<endl;
+                    cin>>ch1;
+                    if (ch1==1)
+                        obj.enqueue();
+                    else
+                        obj.enqueue1();
+                        break;
+                    
+                    case 2:
+                    cout<<"\n Which queue 1 or 2? "<<endl;
+                    cin>>ch1;
+                    if(ch1==1)
+                        obj.del();
+                    else
+                        obj.del1();
+                        break;
+                    
+                    case 3:
+                    cout<<"\n Which queue 1 or 2? "<<endl;
+                    cin>>ch1;
+                    if(ch1==1)
+                        obj.display();
+                    else
+                      obj.display1();
+                        break;
+
+                    case 4:
+                    return (0);
+                    default:
+                    cout<<"\n Invalid choice";
+                }
+ 
+        }
+    return 0;
+}
+
+
