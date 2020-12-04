@@ -1,0 +1,147 @@
+#include<iostream>
+#include<stdio.h>
+#include<stdlib.h>
+#include<string.h>
+using namespace std;
+
+class stack
+{
+    char s[30];
+    int top;
+
+    public:
+        stack()
+        {
+            top = -1;
+        }
+        void push(char val);
+        char pop();
+        int isfull();
+        int isempty();
+};
+
+class str
+{
+    char inputstr[30], revstr[30];
+    stack stobj;
+
+    public:
+        void readstring();
+        void revstring();
+        void convertstring();
+        void checkpalindrome();
+};
+
+int stack :: isempty()
+{
+    if(top==-1)
+        return 1;
+    else
+        return 0;
+}
+
+int stack :: isfull()
+{
+    if(top==29)
+        return 1;
+    else
+        return 0;    
+}
+
+void stack :: push(char val)
+{
+    if(!isfull())
+    {
+        top++;
+        s[top]=val;
+    }
+    else
+        cout<<endl<<"Stack Overflows/Full !!!"<<endl;
+}
+
+
+char stack :: pop()
+{
+    char val='\0';
+    if(!isempty())
+    {
+        val=s[top];
+        top--;
+    }
+    else
+        cout<<endl<<"Stack Underflow/Empty !!!"<<endl;
+    return val;
+}
+
+void str :: readstring()
+{
+    cout<<"\nEnter String : ";
+    gets(inputstr);
+    cout<<"\nYou Entered : "<<inputstr;
+}
+
+void str :: revstring()
+{
+    int i;
+    char ch;
+    for(i=0;inputstr[i]!='\0';i++)
+        stobj.push(inputstr[i]);
+    i=0;
+    cout<<"\n\nAfter reversing your string : ";
+    while(!stobj.isempty())
+    {
+        ch=stobj.pop();
+        cout<<ch;
+        revstr[i]=ch;
+        i++;
+    }
+        revstr[i]='\0';
+}
+
+void str :: convertstring()
+{
+    int i,j=0;
+    char tempstr[30];
+    for(i=0;inputstr[i]!='\0';i++)
+    {
+        if(inputstr[i]>=97 && inputstr[i]<=122 || inputstr[i]>=48 && inputstr[i]<=57)
+        {
+            tempstr[j]=inputstr[i];
+            j++;
+        }
+        else if(inputstr[i]>=65 && inputstr[i]<=90)
+        {
+            tempstr[j]=inputstr[i]+32;
+            j++;
+        }
+    }
+    tempstr[j]='\0';
+    strcpy(inputstr,tempstr);
+    cout<<"\n\nYour converted string : "<<inputstr;
+}
+
+void str :: checkpalindrome()
+{
+    cout<<"\n\n\n";
+    cout<<"\nCheck for Palindrome... "<<endl;
+    readstring();
+    convertstring();
+    revstring();
+    if(strcmp(inputstr,revstr)==0)
+        cout<<"\n\nYour string is PALINDROME !!\n";
+    else
+    {
+        cout<<"\n\nYour string is NOT PALINDROME !!\n";
+    }  
+}
+
+int main()
+{
+    str obj;
+    obj.readstring();
+    obj.convertstring();
+    obj.revstring();
+    obj.checkpalindrome();
+    return 0;
+    
+}
