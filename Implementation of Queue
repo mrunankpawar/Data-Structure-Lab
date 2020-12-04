@@ -1,0 +1,137 @@
+#include<iostream>
+using namespace std;
+#include<unistd.h>
+//#define SIZE 5
+
+class Q
+{
+ 
+    int front,rear;
+    public:
+        Q()
+        {
+            front=0;
+            rear=0;
+
+        }
+        
+
+
+
+    void enqueue(int q[],int SIZE)
+        {
+            int no;
+            if (rear==SIZE)
+            cout<<"Queue is full";
+            else
+            {
+                cout<<"Enter the num: ";
+                cin>>no;
+                q[rear]=no;
+            
+            }
+            if (rear!=SIZE)
+            rear++;
+        }
+
+    void dequeue(int q[],int SIZE)
+    {
+        int no,i;
+        if (front == rear)
+        cout<<"Queue is empty";
+        else
+        {
+            no = q[front];
+            front++;
+        }
+        
+    }
+
+    void display(int q[],int SIZE)
+    {
+        int i,temp=front;
+        if (front==rear)
+        cout<<"The queue is empty";
+            else
+            {
+                cout<<"\n Element in the queue:";
+                for(i=temp;i<rear;i++)
+                {
+                    cout<<q[i]<<" ";
+
+                }
+                cout<<endl;
+            }
+            
+    }
+
+    void slp(int q[],int s)
+    {
+        sleep(q[s]);
+    }
+
+    void del(int q[],int SIZE)
+    {
+        int t=front;
+        if(!(front==rear))
+        {
+            display(q,SIZE);
+            cout<<"Removing job no "<<t+1<<"..."<<endl;
+            slp(q,t);
+            dequeue(q,SIZE);
+            cout<<"\n Job no. "<<t+1<<" -removed from the queue \n"<<endl;
+            
+        }
+        else
+        {
+            front = 0;
+            rear = 0;
+        }
+    
+
+    }
+
+};
+
+
+int main()
+{
+    cout<<"Enter the size of Queue";
+    int SIZE;
+    cin>>SIZE;
+    int q[SIZE];
+    Q obj;
+    int ch;
+
+        while(1)
+        {
+            cout<<"\n ..........Enter your choice..........";
+            cout<<"\n 1. Add job";
+            cout<<"\n 2. Remove Element";
+            cout<<"\n 3. Display Element";
+            cout<<"\n 4. Exit \n";
+
+            cin>>ch;
+
+                switch(ch)
+                {
+                    case 1:
+                    obj.enqueue(q,SIZE);
+                    break;
+                    case 2:
+                    obj.del(q,SIZE);
+                    break;
+                    case 3:
+                    obj.display(q,SIZE);
+                    break;
+                    case 4:
+                    return (0);
+                    default:
+                    cout<<"\n Invalid choice";
+                }
+ 
+        }
+    return 0;
+}
+
+
