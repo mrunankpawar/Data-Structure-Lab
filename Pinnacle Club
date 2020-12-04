@@ -1,0 +1,361 @@
+/*Department of Computer Engineering has student's club named 'Pinnacle Club'.
+    Students of second, third and final year of department can be granted
+    membership on request. Similarly one may cancel the membership of club. First
+    node is reserved for president of club and last node is reserved for secretary of
+    club. Write C++ program to maintain club member‘s information using singly
+    linked list. Store student PRN and Name. Write functions to:
+    a) Add and delete the members as well as president or even secretary.
+    b) Compute total number of members of club
+    c) Display members
+    d) Two linked lists exists for two divisions. Concatenate two lists. */
+
+    #include<iostream>
+    #include<stdlib.h>
+    #include<string>
+    using namespace std;
+    class node
+    {
+        int PRN;
+        string name;
+        string status;
+        node *next;
+
+        friend class do1;
+    };
+
+    class do1
+    {
+        node *head, *last;
+
+        public:
+        do1()
+        {
+            head=NULL;
+
+        }
+        void insert_tail();
+        void insert_head();
+        void insert_inside();
+        void Deleteatbeginning();
+        void Deleteinbetween();
+        void delete_at_end();
+        void display1();
+        void concatenate(node*,node*);
+
+           node* gethead()
+        {
+            return head;
+        }
+    };
+    void do1::insert_tail()
+    {
+        int n,i;
+        node *t,*p;
+        cout<<"\n Enter total number of nodes to insert\t";
+        cin>>n;
+        for(i=0;i<n;i++)
+        {
+            t=new node;
+            cout<<"\n Enter PRN";
+            cin>>t->PRN;
+            cout<<"\n Enter Name of Member";
+            cin>>t->name;
+            t->next=NULL;
+            if(head==NULL)
+
+            head=t;
+            else
+            {
+                p=head;
+                while(p->next!=NULL)
+                p=p->next;
+                p->next=t;
+
+            }
+        }
+    }
+
+    void do1::insert_head()
+    {
+        int i;
+        node *t,*p;
+            t=new node;
+            cout<<"\n Enter PRN : ";
+            cin>>t->PRN;
+            cout<<"\n Enter Name of Member : ";
+            cin>>t->name;
+            t->next=NULL;
+            if(head==NULL)
+            head=t;
+            else
+            {
+                t->next=head;
+                head=t;
+
+            }
+    }
+
+
+
+    void do1::Deleteatbeginning()
+    {
+
+        node *temp;
+        temp=head;
+        if(temp==NULL)
+        {
+          cout<<"List is Empty"<<endl;
+        }
+
+        else
+         {
+
+             head=head->next;
+             temp->next==NULL;
+             delete(temp);
+             cout<<"Head Node deleted Successfully :"<<endl;
+
+         }
+    };
+
+    void do1::delete_at_end()
+    {
+
+        node *temp,*prev;
+        prev=NULL;
+        temp=head;
+
+        if(temp==NULL)
+        {
+
+            cout<<"CLUB is empty !";
+
+        }
+        else
+        {
+
+            while(temp->next!=NULL)
+
+            {
+                prev=temp;
+                temp=temp->next;
+
+            }
+
+              prev->next=NULL;
+              delete(temp);
+              cout<<"SECRETARY deleted successfully "<<endl<<endl;
+
+        }
+    };
+
+    void do1::Deleteinbetween()
+    {
+        int no=0,flag=0;
+        node *temp,*prev;
+        prev=NULL;
+        temp=head;
+        if(temp==NULL)
+        {
+            cout<<"CLUB is empty !";
+
+
+        }
+        else
+        {
+            cout<<"Enter PRN of member"<<endl;
+            cin>>no;
+            while(temp->next!=NULL)
+            {
+
+               if(temp->PRN==no)
+               {
+                   flag=1;
+                   break;
+
+               }
+               prev=temp;
+               temp=temp->next;
+            }
+            if(flag==1)
+            {
+                prev->next=temp->next;
+                temp->next=NULL;
+                delete(temp);
+                cout<<"Memeber Node Successfully Deleted"<<endl<<endl;
+            }
+            else
+            {
+
+                cout<<"Entered Number is not present in list"<<endl<<endl;
+
+            }
+
+          
+        }
+
+    };
+
+    void do1::concatenate(node *ob,node *ob1)
+        {
+            if( ob != NULL && ob1!= NULL )
+            {
+                if (ob->next == NULL)
+                    ob->next = ob1;
+
+                else
+                    concatenate(ob->next,ob1);
+            }
+            else
+            {
+                cout << "Either CLUB 1 or CLUB 2 is NULL\n";
+            }
+        };
+
+    void do1::display1()
+    {   int q=0,a=0;
+        node *t;
+        cout<<"MEMBERS of PINNACLE CLUB are :"<<endl;
+        if(head==NULL)
+        cout<<"\n CLUB IS EMPTY...";
+        else
+        t=head;
+
+
+        do
+        {q++;
+        t=t->next;
+        }while(t!=NULL);
+         t=head;
+            cout<<"Note ADD "<<'\t'<<'\t'<<"PRN"<<'\t'<<"NAME"<<'\t'<<"STATUS"<<'\t'<<"Next "<<endl;
+    do
+      {
+          if(a==0)
+            t->status='p';
+           if(a!=0 )
+            t->status='m';
+           if(q==(a+1))
+            t->status='s';
+
+
+            cout<<t<<'\t'<<'\t'<<t->PRN<<'\t'<<t->name<<'\t'<<t->status<<'\t'<<t->next<<endl;
+            t=t->next;
+            a++;
+        }
+        while(t!=NULL);
+        cout<<"\n THE NUMBER MEMBERS IN CLUB "<<q;
+
+    };
+
+        int main()
+        {
+            do1 obj;
+            do1 obj1;
+            do1 a;
+            int ch,lst,e;
+
+            while(1)
+            {
+                cout<<"Which DIV members should be inserted ?  \n 1.DIV 1 \n 2.DIV 2 \n (enter 1 for DIV 1 or 2 for DIV 2 or 3 for exit)";
+                cin>>lst;
+                e=1;
+
+                if(lst==1)
+                {
+
+
+               while(e)
+               {
+
+
+                cout<<"\n CLUB OF DIV 1";
+                cout<<"\n*************** PINNACLE CLUB ***************"<<endl;
+                cout<<"\n 1.CONCATENATE  THE LISTS \n 2.INSERT MEMBERS \n 3.INSERT PRESIDENT \n 4.DISPLAY\n 5.DELETE PRESIDENT  \n 6.DELETE SECRETARY \n 7.DELETE MEMBER BY PRN \n 8.EXIT FROM LIST OF CLUB"<<endl;
+                cout<<"Enter your choice : "<<endl;
+                cin>>ch;
+                switch(ch)
+                {
+                    case 1:
+                    a.concatenate(obj.gethead(),obj1.gethead());
+                    obj.display1();
+                    break;
+                    case 2:
+                      obj.insert_tail();
+
+                    break;
+                    case 3:
+                     obj.insert_head();
+                    break;
+                    case 4:
+
+                      obj.display1();
+
+                    break;
+                    case 5:
+                     obj.Deleteatbeginning();
+                    break;
+                    case 6:
+                     obj.delete_at_end();
+                    break;
+                    case 7:
+                     obj.Deleteinbetween();
+                    break;
+                    case 8:
+                        e=0;
+                    break;
+
+                    default:
+                    cout<<"\nWrong choice";
+                }
+            }
+                }
+          else if(lst==2)
+          {
+                while(e)
+
+                {
+
+
+                cout<<"\n CLUB OF DIV 2";
+                cout<<"\n*************** PINNACLE CLUB ***************"<<endl;
+                cout<<"\n 1.CONCATENATE  THE LISTS \n 2.INSERT MEMBERS \n 3.INSERT PRESIDENT \n 4.DISPLAY\n 5.DELETE PRESIDENT  \n 6.DELETE SECRETARY \n 7.DELETE MEMBER BY PRN \n 8.EXIT FROM LIST"<<endl;
+                cout<<"Enter your choice : "<<endl;
+                cin>>ch;
+                switch(ch)
+                {
+                    case 1:
+                    a.concatenate(obj.gethead(),obj1.gethead());
+                    obj.display1();
+                    break;
+                    case 2:
+                      obj1.insert_tail();
+                    break;
+                    case 3:
+                     obj1.insert_head();
+                    break;
+                    case 4:
+                      obj1.display1();
+                    break;
+                    case 5:
+                     obj1.Deleteatbeginning();
+                    break;
+                    case 6:
+                     obj1.delete_at_end();
+                    break;
+                    case 7:
+                     obj1.Deleteinbetween();
+                    break;
+                    case 8:
+                        e=0;
+                    break;
+
+                    default:
+                    cout<<"\nWrong choice";
+                } }
+            }
+              else
+                exit(0);
+          }
+
+            return 0;
+        }
