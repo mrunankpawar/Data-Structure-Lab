@@ -1,0 +1,132 @@
+#include<iostream>
+
+using namespace std;
+
+class cqueue
+{
+    private:
+        int *arr;
+        int front, rear;
+        int MAX;
+    public:
+        cqueue(int maxsize = 10);
+        void addq(int item);
+        int delq();
+        void display();
+
+};
+
+cqueue :: cqueue(int maxsize)
+{
+    MAX = maxsize;
+    arr = new int [MAX];
+    front = rear = -1;
+    for (int i=0; i<MAX; i++)
+        arr[i] = 0;
+
+}
+
+void cqueue :: addq (int item)
+{
+    if((rear + 1) % MAX == front )
+    {
+        cout<<"\n Queue is full";
+        return;
+    }
+    rear = (rear + 1) % MAX;
+    arr[rear] = item;
+    if (front == -1)
+        front = 0;
+}
+
+int cqueue :: delq ()
+{
+    int data;
+    if(front == -1)
+    {
+        cout<<"\n Queue is empty";
+        return '\0';
+    }
+    data = arr[front];
+    arr[front] = 0;
+    if (front == rear)
+    {
+        front = -1;
+        rear = -1;
+    }
+    else
+        front = (front + 1) % MAX;
+    return data;
+}
+
+void cqueue :: display()
+{
+    cout<<endl;
+    for(int i=0; i<MAX; i++)
+        switch(arr[i])
+        {
+            case 1:
+                cout<<i+1<<".Onion Pizza \n";
+                break;
+            case 2:
+                cout<<i+1<<".Tomato Pizza \n";
+                break;
+            case 3: 
+                cout<<i+1<<".Capsicum Pizza \n";
+                break;
+            case 4:
+                cout<<i+1<<".Cheesy Burst Pizza \n";
+                break;
+        }
+}
+int main()
+{
+    cqueue a;
+    int c,ch,data;
+
+    do
+    {
+        cout<<"\n\n Enter \n1:Place Order \n2:Display order \n3:To check order service \n";
+        cin>>ch;
+        switch(ch)
+        {
+            case 1:
+                cout<<"\n Enter type for pizza \n1:Onion Pizza \n2:Tomato Pizza \n3:Capsicum Pizza \n4:Cheesy Burst Pizza";
+                cin>>c;
+                a.addq(c);
+                break;
+            case 2:
+                cout<<"\n Pizza orders are :";
+                a.display();
+                break;
+            case 3:
+                data = a.delq();
+                if(data)
+                {
+                    cout<<"\n The order serving now..Order no is: ";
+                    switch(data)
+                    {
+                        case 1:
+                            cout<<"Onion Pizza\n";
+                            break;
+                        case 2:
+                            cout<<"Tomato Pizza\n";
+                            break;
+                        case 3:
+                            cout<<"Capsicum Pizza\n";
+                            break;
+                        case 4:
+                            cout<<"Cheesy Burst Pizza\n";
+                            break;
+                    }
+                }
+                break;
+            case 4:
+                return(0);
+            default:
+                cout<<"\n Invalid choice";
+
+        }
+    }while(ch!=4);
+
+}
